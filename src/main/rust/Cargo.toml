@@ -1,0 +1,11 @@
+[package]
+name = "java-interop"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+jni = "0.21.1"
+ryu = "1.0.18"
