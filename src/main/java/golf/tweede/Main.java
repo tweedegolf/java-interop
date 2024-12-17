@@ -35,12 +35,12 @@ public class Main {
     }
 
     @Benchmark
-    public String doubleToStringJava(MyState state) {
+    public String doubleToStringJavaBenchmark(MyState state) {
         return Double.toString(state.value);
     }
 
     @Benchmark
-    public String doubleArrayToStringJava(MyState state) {
+    public String doubleArrayToStringJavaBenchmark(MyState state) {
         return String.join(" ", DoubleStream.of(state.array).mapToObj(Double::toString).toArray(String[]::new));
     }
 }
