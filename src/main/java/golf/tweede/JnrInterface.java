@@ -6,10 +6,9 @@ import org.openjdk.jmh.annotations.Benchmark;
 
 public class JnrInterface {
     public interface RustLib {
-        String doubleToStringRust(double value); // These also leak a bit of memory
-        String doubleToStringRyu(double value);
-        // String doubleArrayToStringRyu(double[] array, int len); // This is bad and leaks lots of memory
-        Pointer doubleArrayToStringRyu(double[] array, int len); // This allows us to free the memory
+        Pointer doubleToStringRust(double value);
+        Pointer doubleToStringRyu(double value);
+        Pointer doubleArrayToStringRyu(double[] array, int len);
         void freeString(Pointer string);
     }
 
@@ -33,12 +32,12 @@ public class JnrInterface {
 
     @Benchmark
     public String doubleToStringRustBenchmark(Main.MyState state) {
-        return lib.doubleToStringRust(state.value);
+        return pointerToString(lib.doubleToStringRust(state.value));
     }
 
     @Benchmark
     public String doubleToStringRyuBenchmark(Main.MyState state) {
-        return lib.doubleToStringRyu(state.value);
+        return pointerToString(lib.doubleToStringRyu(state.value));
     }
 
     @Benchmark
