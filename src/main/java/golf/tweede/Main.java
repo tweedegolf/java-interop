@@ -16,11 +16,15 @@ public class Main {
         System.out.println("JNR-FFI");
         System.out.println(JnrInterface.doubleToStringRust(Math.PI));
         System.out.println(JnrInterface.doubleToStringRyu(Math.PI));
+        System.out.println("Project Panama");
+        System.out.println(Panama.doubleToStringRust(Math.PI));
+        System.out.println(Panama.doubleToStringRyu(Math.PI));
 
         double[] array = { 1, 2, Math.PI };
         System.out.println(String.join(" ", DoubleStream.of(array).mapToObj(Double::toString).toArray(String[]::new)));
         System.out.println(JniInterface.doubleArrayToStringRyu(array));
         System.out.println(JnrInterface.doubleArrayToStringRyu(array));
+        System.out.println(Panama.doubleArrayToStringRyu(array));
     }
 
     @State(Scope.Benchmark)
