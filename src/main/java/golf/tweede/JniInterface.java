@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 
 public class JniInterface {
     public static native String doubleToStringRust(double v);
+
     public static native String doubleToStringRyu(double v);
+
     public static native String doubleArrayToStringRyu(double[] v);
 
     static {
@@ -16,17 +18,17 @@ public class JniInterface {
     }
 
     @Benchmark
-    public String doubleToStringRustBenchmark(Main.MyState state) {
+    public String doubleToStringRustBenchmark(Main.BenchmarkState state) {
         return doubleToStringRust(state.value);
     }
 
     @Benchmark
-    public String doubleToStringRyuBenchmark(Main.MyState state) {
+    public String doubleToStringRyuBenchmark(Main.BenchmarkState state) {
         return doubleToStringRyu(state.value);
     }
 
     @Benchmark
-    public String doubleArrayToStringRyuBenchmark(Main.MyState state) {
+    public String doubleArrayToStringRyuBenchmark(Main.BenchmarkState state) {
         return doubleArrayToStringRyu(state.array);
     }
 }

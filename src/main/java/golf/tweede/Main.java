@@ -10,19 +10,21 @@ import java.util.stream.DoubleStream;
 public class Main {
     public static void main(String[] arg) {
         System.out.println(Math.PI);
+        System.out.println("JNI");
         System.out.println(JniInterface.doubleToStringRust(Math.PI));
         System.out.println(JniInterface.doubleToStringRyu(Math.PI));
-        System.out.println(JnrInterface.lib.doubleToStringRust(Math.PI));
-        System.out.println(JnrInterface.lib.doubleToStringRyu(Math.PI));
+        System.out.println("JNR-FFI");
+        System.out.println(JnrInterface.doubleToStringRust(Math.PI));
+        System.out.println(JnrInterface.doubleToStringRyu(Math.PI));
 
-        double[] array = {1, 2, Math.PI};
+        double[] array = { 1, 2, Math.PI };
         System.out.println(String.join(" ", DoubleStream.of(array).mapToObj(Double::toString).toArray(String[]::new)));
         System.out.println(JniInterface.doubleArrayToStringRyu(array));
-        System.out.println(JnrInterface.pointerToString(JnrInterface.lib.doubleArrayToStringRyu(array, array.length)));
+        System.out.println(JnrInterface.doubleArrayToStringRyu(array));
     }
 
     @State(Scope.Benchmark)
-    public static class MyState {
+    public static class BenchmarkState {
         public double value = Math.PI;
         public double[] array = new double[1_000_000];
 
@@ -34,13 +36,15 @@ public class Main {
         }
     }
 
+    // Benchmarks
+
     @Benchmark
-    public String doubleToStringJavaBenchmark(MyState state) {
+    public String doubleToStringJavaBenchmark(BenchmarkState state) {
         return Double.toString(state.value);
     }
 
     @Benchmark
-    public String doubleArrayToStringJavaBenchmark(MyState state) {
+    public String doubleArrayToStringJavaBenchmark(BenchmarkState state) {
         return String.join(" ", DoubleStream.of(state.array).mapToObj(Double::toString).toArray(String[]::new));
     }
 }
