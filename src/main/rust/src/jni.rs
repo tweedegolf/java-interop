@@ -38,7 +38,7 @@ pub extern "C" fn Java_golf_tweede_JniInterface_doubleArrayToStringRyu(
     {
         // limit scope of elements to prevent keeping env borrowed as mutable
         let elements = unsafe {
-            env.get_array_elements_critical(&array, ReleaseMode::CopyBack)
+            env.get_array_elements_critical(&array, ReleaseMode::NoCopyBack)
                 .unwrap()
         };
 
