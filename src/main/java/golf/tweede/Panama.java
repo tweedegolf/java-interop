@@ -11,11 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Panama {
-    static {
-        Path p = Paths.get("src/main/rust/target/release/libjava_interop.so");
-        System.load(p.toAbsolutePath().toString()); // load library
-    }
-
     /**
      * Grab a string from a MemorySegment, and free the original Rust string from
      * the pointer

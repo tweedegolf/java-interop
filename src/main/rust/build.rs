@@ -19,7 +19,7 @@ fn main() {
         .arg("--target-package")
         .arg("golf.tweede.gen")
         .arg("--library")
-        .arg("java_interop")
+        .arg(":src/main/rust/target/release/libjava_interop.so")
         .arg("src/main/rust/bindings/java_interop.h")
         .spawn()
         .unwrap();
