@@ -1,9 +1,12 @@
 package golf.tweede
 
+import golf.tweede.Main.BenchmarkState
 import jnr.ffi.LibraryLoader
 import jnr.ffi.Pointer
+import org.openjdk.jmh.annotations.Benchmark
 
-class JnrInterface {
+
+open class JnrInterface {
     interface RustLib {
         fun doubleToStringRust(value: Double): Pointer
         fun doubleToStringRyu(value: Double): Pointer
@@ -35,6 +38,21 @@ class JnrInterface {
         fun doubleToStringRust(value: Double): String = pointerToString(lib.doubleToStringRust(value))
         fun doubleToStringRyu(value: Double): String = pointerToString(lib.doubleToStringRyu(value))
         fun doubleArrayToStringRyu(array: DoubleArray): String = pointerToString(lib.doubleArrayToStringRyu(array, array.size))
+    }
+
+    @Benchmark
+    fun doubleToStringRustBenchmark(state: BenchmarkState): String {
+        return doubleToStringRust(state.value)
+    }
+
+    @Benchmark
+    fun doubleToStringRyuBenchmark(state: BenchmarkState): String {
+        return doubleToStringRyu(state.value)
+    }
+
+    @Benchmark
+    fun doubleArrayToStringRyuBenchmark(state: BenchmarkState): String {
+        return doubleArrayToStringRyu(state.array)
     }
 }
 

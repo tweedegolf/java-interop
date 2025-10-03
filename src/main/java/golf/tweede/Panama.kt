@@ -1,9 +1,12 @@
 package golf.tweede
 
+import golf.tweede.Main.BenchmarkState
 import golf.tweede.gen.java_interop_h
+import org.openjdk.jmh.annotations.Benchmark
 import java.lang.foreign.Arena
 import java.lang.foreign.MemorySegment
 import java.lang.foreign.ValueLayout
+
 
 open class Panama {
     companion object {
@@ -33,6 +36,22 @@ open class Panama {
             }
             return output
         }
+    }
+
+
+    @Benchmark
+    fun doubleToStringRustBenchmark(state: BenchmarkState): String {
+        return doubleToStringRust(state.value)
+    }
+
+    @Benchmark
+    fun doubleToStringRyuBenchmark(state: BenchmarkState): String {
+        return doubleToStringRyu(state.value)
+    }
+
+    @Benchmark
+    fun doubleArrayToStringRyuBenchmark(state: BenchmarkState): String {
+        return doubleArrayToStringRyu(state.array)
     }
 }
 
